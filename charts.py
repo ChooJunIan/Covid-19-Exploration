@@ -62,20 +62,20 @@ st.markdown('From visually inspecting the scatter plot matrix above, we can see 
 st.markdown('')
 
 st.markdown('Below is the relational plot between daily new cases and cases recovered.')
-Image.open('relplot.jpg').convert('RGB').save('relplot.jpeg')
+Image.open('relplot.JPG').convert('RGB').save('relplot.jpeg')
 im = Image.open("relplot.jpeg")
 st.image(im, width=800, caption="The new cases and cases recovered relational plot")
 st.markdown('')
 
 st.markdown('Below is the relational plot for the tests done using PCR and RTK-AG.')
-Image.open('relplot_tests_malaysia.jpg').convert('RGB').save('relplot_tests_malaysia.jpeg')
+Image.open('relplot_tests_malaysia.JPG').convert('RGB').save('relplot_tests_malaysia.jpeg')
 im = Image.open("relplot_tests_malaysia.jpeg")
 st.image(im, width=800, caption="The relational plot for PCR and RTK-AG")
 st.markdown('')
 
 st.subheader('States in Malaysia')
 st.markdown('Below is the relational plot for daily cases in each state.')
-Image.open('relplot_cases_states.jpg').convert('RGB').save('relplot_cases_states.jpeg')
+Image.open('relplot_cases_states.JPG').convert('RGB').save('relplot_cases_states.jpeg')
 im = Image.open("relplot_cases_states.jpeg")
 st.image(im, width=800, caption="The relational plot for total cases in each state")
 st.markdown('')
