@@ -107,7 +107,7 @@ st.markdown('Below is the relational plot for daily cases in each state.')
 Image.open('relplot_cases_states.JPG').convert('RGB').save('relplot_cases_states.jpeg')
 im = Image.open("relplot_cases_states.jpeg")
 st.image(im, width=800, caption="The relational plot for total cases in each state")
-st.markdown('Knowing that Selangor has the highest number of total cases, the time series plot above shows a sligtly different perspective as to when Selangor had a massive spike in cases. It appears that most of the new cases for all the states take place after May 2021. However, new cases in Selangor increase significatly higher than the other states around this time period. Comparing with the time series plot for cases in Malaysia earlier, we can see the trend taking a similar shape to this particular state')
+st.markdown('Knowing that Selangor has the highest number of total cases, the time series plot above shows a sligtly different perspective from time. It appears that most of the new cases for all the states take place after May 2021. However, new cases in Selangor increase significatly higher than the other states around this time period. Comparing with the time series plot for cases in Malaysia earlier, we can see the trend taking a similar shape to this particular state')
 
 st.header("Question 3 (ii)")
 st.subheader('We need to identify the states with the strongest correlation to Pahang and Johor')
