@@ -3,7 +3,4 @@ numpy
 pandas
 altair
 sklearn
-collections
-itertools
-math
 PIL
