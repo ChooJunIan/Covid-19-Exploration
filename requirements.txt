@@ -3,4 +3,4 @@ numpy
 pandas
 altair
 sklearn
-PIL
+pillow
