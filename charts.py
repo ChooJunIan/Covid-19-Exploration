@@ -333,6 +333,12 @@ st.text('')
 
 st.subheader("Classification Models")
 
+st.markdown("Using the top features extracted from Question 3(iii), we can use this to predict danger level of COVID-19 cases in certain states. The danger level are defined as: ")
+st.markdown('1. Low: <500')
+st.markdown('2. Medium-Low: 1500 - 3000')
+st.markdown('3. Medium-High: 3000 - 5000')
+st.markdown('4. High: >5000')
+
 def model_building_and_accuracy(df, state):
 
     df['danger'] = pd.cut(df['cases_new'], bins=[-1, 500, 1500, 3000, 100000], labels=['low', 'medium_low', 'medium_high', 'high'])
@@ -389,8 +395,28 @@ for i, state in enumerate(chosen_states):
     df_temp = model_building_and_accuracy(state_featurized[state], state)
     df_temp
 
+st.markdown('From this, we can see that the classification models performs relatively well on predicting the danger level of COVID-19 cases. Decision Tree Classifier performs slightly worse than other models, and GaussianNB performs the best on test sets.')
+st.markdown('')
+
+st.subheader('When merged with tests data')
+st.markdown('We can see that from the accuracy for the different models, accuracy for Decision Tree classifier is lower on test set on Pahang and Kedah, but performs relatively well on Selangor and Johor. SVM and GaussianNB performs well on test cases compared to their training cases, except for Kedah where they perform significantly worse. All models have relatively low accuracy on Kedah.')
+st.markdown('GaussianNB and SVM performs consistently well on all 4 states, though either model have a state that they perform slightly better on.')
+
+st.subheader('Whe NOT merged with tests data')
+st.markdown('We noticed that the classification model is relatively accurate for test and training cases for the models (all >0.89). SVM and GaussianNB model performs better on Johor and Selangor while Decision Tree classfier performs better on Pahang and Kedah')
+
+st.subheader('Conclusion')
+st.markdown('From those two different data sets, we can observe that either SVM or GaussianNB would be good model to classify a particular day to their respective danger levels.')
+
 st.subheader("Regression Models")
-st.markdown("Linear Regression")
+st.markdown('We will be training two types of regression models, namely:')
+st.markdown('1. Multiple/Simple Linear Regression')
+st.markdown('2. Decision Tree Regression')
+st.markdown('Both models will be used to predict daily new cases for each state separately, using the best features for each state that we have produced from Q3(iii) as our predictors.')
+
+
+st.subheader("Multiple Linear Regression")
+st.markdown('The first regression model we will be using is linear regression. Depending on the number of best features extracted the model could either be a simple linear or multiple linear type.')
 for i, state in enumerate(chosen_states):
     # defining predictors and target values
     x = state_featurized[state].loc[:, best_features[state]].values # using best features as predictors
@@ -424,7 +450,12 @@ for i, state in enumerate(chosen_states):
         color='key:N'
     ).properties(height=300, width=700)
     st.altair_chart(line)
-    
+
+st.subheader('When merged with tests data')
+st.markdown('We can see from the plots that the linear model does a poor job in predicting cases with detail, but rather it follows the general trend of the actual cases. For Selagor, the model appears to capture the spikes in actual cases, however it does so with a lag, and ends up not accounting for the majority of variation of the actual values. This is further evident from the R-square and RMSE values of Selangor compared to the metrics in the other states. It is a suprising result considering that Selangor uses the highest number of best features to fit the model compared to the other states. The linear regression model here is acceptable for Kedah but not for Johor, Pahang and Selangor based on the high root mean squared error and/or low R2 score.')
+st.subheader('When NOT merged with tests data')
+st.markdown('We notice from the plots alone that the linear model follows the overall trend and adequately captures the variation in the actual values. This is further evident from the high R-square scores for each state, showing that well >90% of the variation of the actual number of cases is accounted for in the model. With the exception of Selangor, the errors of the linear model\'s predicted values are low. This makes the linear model a good fit for our case.')
+
 st.markdown('')
 st.markdown("Decision Tree Regression")
 for i, state in enumerate(chosen_states):
@@ -464,3 +495,12 @@ for i, state in enumerate(chosen_states):
         color='key:N'
     ).properties(height=300, width=700)
     st.altair_chart(line)
+
+
+st.subheader('When merged with tests data')
+st.markdown('At first glance, the plots show that the regression tree model\'s prediction somewhat captures the detail of the actual numbers. However, looking at the R2 values for all the states, we notice that the regression tree doesn\'t actually do a good job in accounting for the variation of the actual number of daily cases. Apart from the state of Johor, which gives an adequate R-sqaured score of 0.705, the score for the other states are all below 0.6. Furthermore, the metrics for Selangor tells us that the model is a really bad fit, based on the very high error and a R-square score of < 20%. Overall, we feel that regression tree is not a good model to predict number of cases for any of the states here.')
+st.subheader('When NOT merged with tests data')
+st.markdown('From the plots, the decision tree regression model follows the overall trend and seems to captures to capture most of the variation in the actual number of cases. This is mostly because of the model\'s perfect training score, however the test scores show a decent accuracy. Despite the high scores, the model gives high errors for all but the state of Pahang.')    
+
+st.subheader('Conclusion')
+st.markdown('Both models seem to perform better when the cases dataset is not merged with the tests. This is most likely because there are significantly more data points to train and test the model, as the merged dataset only holds observations spanning no more than 3 months. Furthermore, the unmerged dataset extracts more number of best features per state for the models to train on. Overall, the linear regression model outperforms the decision tree regression model.')
